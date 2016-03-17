@@ -134,7 +134,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 LOGIN_URL = os.path.join(BASE_DIR, 'registration/login_view/')
 
 # Additional settings for production
-if socket.gethostname() != 'mk-IdeaPad-U330p':
+if socket.gethostname() == 'mk-IdeaPad-U330p':
     # Exceptions are sent to the following
     # ADMINS = (
     #     ('Michael Kao', 'mkao006@emperorkao.com')
@@ -167,4 +167,4 @@ if socket.gethostname() != 'mk-IdeaPad-U330p':
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
