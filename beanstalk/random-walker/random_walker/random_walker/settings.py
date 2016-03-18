@@ -100,13 +100,28 @@ WSGI_APPLICATION = 'random_walker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'random_walker_aws_test',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'random_walker_aws_test',
+            'USER': 'mk',
+            'PASSWORD': 'kbmk1986',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 
 # Internationalization
@@ -133,37 +148,37 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 LOGIN_URL = os.path.join(BASE_DIR, 'registration/login_view/')
 
-# Additional settings for production
-if socket.gethostname() == 'mk-IdeaPad-U330p':
-    # Exceptions are sent to the following
-    # ADMINS = (
-    #     ('Michael Kao', 'mkao006@emperorkao.com')
-    # )
+# # Additional settings for production
+# if socket.gethostname() != 'mk-IdeaPad-U330p':
+#     # Exceptions are sent to the following
+#     # ADMINS = (
+#     #     ('Michael Kao', 'mkao006@emperorkao.com')
+#     # )
 
-    # Sned email if 404 is hit
-    # SEND_BROKEN_LINK_EMAILS = True
+#     # Sned email if 404 is hit
+#     # SEND_BROKEN_LINK_EMAILS = True
 
-    # Broken link error is sent to the manager
-    # MANAGERS = (
-    #     ('Michael Kao', 'mkao006@emperorkao.com')
-    # )
+#     # Broken link error is sent to the manager
+#     # MANAGERS = (
+#     #     ('Michael Kao', 'mkao006@emperorkao.com')
+#     # )
 
-    # Security settings for production
-    SESSION_COOKIE_HTTPONLY = False
-    CSRF_COOKIE_HTTPONLY = False
-    SECURE_SSL_REDIRECT = True
-    SECURE_SSL_HOST = True
-    SECURE_HSTS_SECONDS = False
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    X_FRAME_OPTIONS = 'DENY'
-    # Parse database configuration from $DATABASE_URL
-    DATABASES['default'] = dj_database_url.config()
-    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
-    # Enable Persistent Connections
-    DATABASES['default']['CONN_MAX_AGE'] = 500
+#     # Security settings for production
+#     SESSION_COOKIE_HTTPONLY = False
+#     CSRF_COOKIE_HTTPONLY = False
+#     SECURE_SSL_REDIRECT = True
+#     SECURE_SSL_HOST = True
+#     SECURE_HSTS_SECONDS = False
+#     SECURE_CONTENT_TYPE_NOSNIFF = True
+#     SECURE_BROWSER_XSS_FILTER = True
+#     SESSION_COOKIE_SECURE = True
+#     CSRF_COOKIE_SECURE = True
+#     X_FRAME_OPTIONS = 'DENY'
+#     # Parse database configuration from $DATABASE_URL
+#     DATABASES['default'] = dj_database_url.config()
+#     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+#     # Enable Persistent Connections
+#     DATABASES['default']['CONN_MAX_AGE'] = 500
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
