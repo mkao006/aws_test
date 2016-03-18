@@ -144,42 +144,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 LOGIN_URL = os.path.join(BASE_DIR, 'registration/login_view/')
-
-# # Additional settings for production
-# if socket.gethostname() != 'mk-IdeaPad-U330p':
-#     # Exceptions are sent to the following
-#     # ADMINS = (
-#     #     ('Michael Kao', 'mkao006@emperorkao.com')
-#     # )
-
-#     # Sned email if 404 is hit
-#     # SEND_BROKEN_LINK_EMAILS = True
-
-#     # Broken link error is sent to the manager
-#     # MANAGERS = (
-#     #     ('Michael Kao', 'mkao006@emperorkao.com')
-#     # )
-
-#     # Security settings for production
-#     SESSION_COOKIE_HTTPONLY = False
-#     CSRF_COOKIE_HTTPONLY = False
-#     SECURE_SSL_REDIRECT = True
-#     SECURE_SSL_HOST = True
-#     SECURE_HSTS_SECONDS = False
-#     SECURE_CONTENT_TYPE_NOSNIFF = True
-#     SECURE_BROWSER_XSS_FILTER = True
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
-#     X_FRAME_OPTIONS = 'DENY'
-#     # Parse database configuration from $DATABASE_URL
-#     DATABASES['default'] = dj_database_url.config()
-#     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
-#     # Enable Persistent Connections
-#     DATABASES['default']['CONN_MAX_AGE'] = 500
-
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
