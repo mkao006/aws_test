@@ -37,6 +37,9 @@ def get_secret(setting, secrets=secrets):
 
 
 SECRET_KEY = get_secret("SECRET_KEY")
+AWS_STORAGE_BUCKET_NAME = get_secret("BUCKET_NAME")
+AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # if socket.gethostname() == 'mk-IdeaPad-U330p':
@@ -150,11 +153,6 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-
-# AWS_STORAGE_BUCKET_NAME = 'random-walker'
-# AWS_ACCESS_KEY_ID = 'AKIAIYVVLKL24VQACW4A'
-# AWS_SECRET_ACCESS_KEY = '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'
 
 # # Tell django-storages that when coming up with the URL for an item in
 # # S3 storage, keep it simple - just use this domain plus the path. (If
