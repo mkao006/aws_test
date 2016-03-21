@@ -6,6 +6,7 @@
   <body>
     {% block content %}
     <div>
+      <img src="{{profile.userprofile.profile_picture.url}}", width=100> <br>
       Username: {{profile.username}}<br>
       First Name: {{profile.first_name}}<br>
       Last Name: {{profile.last_name}}<br>
@@ -21,8 +22,22 @@
       </div>
     </div>
 
-    <input type='submit' class="btn btn-success" value="Delete Account">
+    <input type="submit" class="btn btn-success" value="Delete Account">
     </form>
+
+
+
+    Upload Your Profile Picture:    
+    <form id="upload_profile_picture" action="{% url 'user_action:upload_profile_pic' %}" enctype="multipart/form-data" method = "POST">
+      {% csrf_token %}
+      <div>
+	<div class="col-sm-7">
+	  <input type="file" name="profile_picture" accept="image/*" >
+	</div>
+	<input type="submit" class="btn btn-success" value="Upload Image">
+      </div>
+    </form>
+
     {% endblock content %}
   </body>
   {% block footnote %}{% endblock footnote %}

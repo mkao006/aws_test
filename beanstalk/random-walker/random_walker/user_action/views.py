@@ -8,8 +8,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django_mobile import get_flavour
 from django.views.generic import DetailView
-from .forms import RegistrationForm
-
+from .forms import RegistrationForm, UploadProfilePicture
+from .models import UserProfile
 
 # Create your views here.
 class profile_view(DetailView):
@@ -18,7 +18,7 @@ class profile_view(DetailView):
     """
     model = User
     template_name = 'user_action/_user_profile.html'
-    context_object_name = "profile"
+    context_object_name = 'profile'
 
     def get_object(self):
         self.user = get_object_or_404(User, username=self.kwargs['username'])
@@ -47,6 +47,7 @@ def create_user(request):
         if form.is_valid():
             info = form.cleaned_data
             new_user = User.objects.create_user(**info)
+            new_user_profile = UserProfile.objects.get_or_create(user = new_user)
             auth_user = authenticate(username = info['username'], password = info['password'])
             login(request, auth_user)
             return HttpResponseRedirect('/')
@@ -66,6 +67,24 @@ def delete_user(request):
                 return HttpResponseRedirect("/")
         else:
             return HttpResponse("User not deleted, incorrect input")
+
+
+def upload_profile_pic(request):
+    """
+    Upload Profile Picture
+    """
+    if request.method == "POST":
+        form = UploadProfilePicture(request.POST, request.FILES)
+        if form.is_valid():
+            up = UserProfile.objects.get(user = request.user)
+            up.profile_picture = form.cleaned_data['profile_picture']
+            up.save()
+            # handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect("/")
+        else:
+            form = UploadProfilePicture()
+            return HttpResponse("Upload Failed")
+        
 
 def login_view(request):
     """
@@ -108,4 +127,4 @@ def logout_view(request):
     if request.user.is_authenticated():
         logout(request)
         return HttpResponseRedirect('/')
-
+    
