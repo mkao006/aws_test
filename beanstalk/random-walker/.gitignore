@@ -5,3 +5,4 @@
 !.elasticbeanstalk/*.global.yml
 settings.json
 random_walker_bucket_policy.json
+*.pyc
