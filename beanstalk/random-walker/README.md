@@ -41,6 +41,14 @@ eb logs
 
 For more information, follow this [tutorial](https://realpython.com/blog/python/deploying-a-django-app-to-aws-elastic-beanstalk/)
 
+After the environment has been created with `eb create`, any change
+can be deployed with
+
+```
+eb deploy
+```
+
+
 ## Managinng secrets
 
 The repository is set up with [*git secret*](https://github.com/awslabs/git-secrets)
