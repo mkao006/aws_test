@@ -48,6 +48,8 @@ can be deployed with
 eb deploy
 ```
 
+For more command reference please see [EB CLI Command Reference](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb3-cmd-commands.html?icmpid=docs_elasticbeanstalk_console)
+
 
 ## Managinng secrets
 
