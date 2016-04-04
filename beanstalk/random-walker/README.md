@@ -19,10 +19,12 @@ The website is then available to view at the specified port.
 ## Production
 
 To start the website on elastic beanstalk, we need to first create the
-environment. Replace the XXXX with the username and password.
+environment. Replace the XXXX with the username and password. The
+instance type has been set to minimum and a single instance is
+launched for testing to reduce cost.
 
 ```
-eb create -db.engine postgres -db.user XXXX -db.pass XXXX
+eb create -db.engine postgres -db.user XXXX -db.pass XXXX -i t2.micro --single
 ```
 
 if the environment is created successfully, then we can open the website.
