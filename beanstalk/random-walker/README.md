@@ -26,7 +26,10 @@ aws rds create-db-instance\
      --no-multi-az\
 ```
 
-For more reference please see [AWS CLI RDS
+For more information please see [Using Elastic Beanstalk with Amazon
+RDS](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.RDS.html)
+
+For more command line reference please see [AWS CLI RDS
 Reference](http://docs.aws.amazon.com/cli/latest/reference/rds/)
 
 # Development
@@ -89,12 +92,12 @@ aws rds delete-db-instance\
 
 
 
-Then we can create the environment. Replace the XXXX with the username
-and password. The instance type has been set to minimum and a single
-instance is launched for testing to reduce cost.
+When the db instance is created then we can create the application
+environment on Elastic Beanstalk. The instance type has been set to
+minimum and a single instance is launched for testing to reduce cost.
 
 ```
-eb create -db.engine postgres -i t2.micro --single
+eb create -i t2.micro --single
 ```
 
 if the environment is created successfully, then we can open the website.
