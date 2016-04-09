@@ -12,4 +12,4 @@ class UserProfile(models.Model):
         ('', 'Unspecified'),
     )
     gender = models.CharField(max_length=2, choices = gender_choice, default='')
-    profile_picture = models.ImageField(upload_to='userprofile')
+    profile_picture = models.ImageField(upload_to='userprofile', default='userprofile/default.jpeg')
