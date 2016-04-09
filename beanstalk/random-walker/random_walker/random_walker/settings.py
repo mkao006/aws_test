@@ -158,7 +158,7 @@ if socket.gethostname() == 'mk-IdeaPad-U330p':
     MEDIA_URL = '/media/'
 else:
     MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -180,8 +180,6 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
 # Tell the staticfiles app to use S3Boto storage when writing the
 # collected static files (when you run `collectstatic`).
 STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 LOGIN_URL = os.path.join(BASE_DIR, 'registration/login_view/')
 
@@ -193,3 +191,5 @@ else:
     # it's safest to always set it.
     # STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
