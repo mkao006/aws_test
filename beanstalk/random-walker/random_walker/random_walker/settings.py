@@ -35,7 +35,6 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {0} environment variable".format(settting)
         raise ImproperlyConfigured(error_msg)
 
-
 SECRET_KEY = get_secret("SECRET_KEY")
 AWS_STORAGE_BUCKET_NAME = get_secret("BUCKET_NAME")
 AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
@@ -143,9 +142,14 @@ USE_L10N = True
 USE_TZ = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_ROOT = BASE_DIR
-MEDIA_URL = '/media/'
 
+
+MEDIAFILES_LOCATION = 'media'
+if socket.gethostname() == 'mk-IdeaPad-U330p':
+    MEDIA_URL = '/media/'
+else:
+    MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -175,7 +179,9 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 # Tell the staticfiles app to use S3Boto storage when writing the
 # collected static files (when you run `collectstatic`).
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 LOGIN_URL = os.path.join(BASE_DIR, 'registration/login_view/')
 
@@ -185,4 +191,5 @@ else:
     # This is used by the `static` template tag from `static`, if you're
     # using that. Or if anything else refers directly to STATIC_URL. So
     # it's safest to always set it.
-    STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    # STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
