@@ -103,18 +103,7 @@ WSGI_APPLICATION = 'random_walker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
-    }
-else:
+if socket.gethostname() == 'mk-IdeaPad-U330p':
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -123,6 +112,17 @@ else:
             'PASSWORD': 'kbmk1986',
             'HOST': 'localhost',
             'PORT': '5432',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': get_secret('RDS_DB_NAME'),
+            'USER': get_secret('RDS_USERNAME'),
+            'PASSWORD': get_secret('RDS_PASSWORD'),
+            'HOST': get_secret('RDS_HOSTNAME'),
+            'PORT': get_secret('RDS_PORT'),
         }
     }
 
