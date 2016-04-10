@@ -9,6 +9,10 @@ security breach such as password.
 
 ## Setup Virtual Environment
 
+`Virtualenv` is a tool to keep the dependencies required by different
+projects in separate places, by creating virtual Python environments
+for them
+
 To setup the virtual environment, we will need to install virtualenv.
 
 ```
@@ -51,6 +55,39 @@ deactivate
 ## Setup AWS account
 
 ## Setup AWS CLI and EB CLI
+
+Install the AWS Command line tool.
+```
+pip install awsebcli
+```
+
+
+## Install Docker
+
+Update and install docker.
+```
+sudo apt-get update && sudo apt-get install docker-engine
+```
+
+```
+pip install docker-compose
+```
+
+Install the docker machine
+```
+curl -L https://github.com/docker/machine/releases/download/v0.7.0-rc3/docker-machine-`uname -s`-`uname -m` >/usr/local/bin/docker-machine && \
+  chmod +x /usr/local/bin/docker-machine
+```
+
+If you have the [permissiong or curl
+problem](https://forums.docker.com/t/permission-denied-when-trying-to-install-compose-on-ubuntu/1034/5),
+then run the following.
+
+```
+sudo bash -c "curl -L https://github.com/docker/machine/releases/download/v0.7.0-rc3/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && chmod +x /usr/local/bin/docker-machine"
+```
+
+
 
 ## Elastic Beanstalk
 
