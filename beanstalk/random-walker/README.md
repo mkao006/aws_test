@@ -87,6 +87,18 @@ then run the following.
 sudo bash -c "curl -L https://github.com/docker/machine/releases/download/v0.7.0-rc3/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && chmod +x /usr/local/bin/docker-machine"
 ```
 
+After Docker has been installed, create a `Dockerfile` then run the
+following where the `Dockerfile sits to create the container.
+
+```
+sudo docker build -t mkao006/random_walker .
+```
+
+To run the container locally
+
+```
+docker run --publish=8001:8000 mkao006/random_walker
+```
 
 
 ## Elastic Beanstalk
