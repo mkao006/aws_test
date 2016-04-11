@@ -122,8 +122,9 @@ elif env == 'docker':
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'random_walker_aws_test',
             'USER': 'mk',
-            'PASSWORD': get_secret('RDS_PASSWORD'),
-            'HOST': 'random_walker',
+            # 'PASSWORD': get_secret('RDS_PASSWORD'),
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
             'PORT': '5432',
         }
     }

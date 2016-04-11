@@ -44,6 +44,19 @@ RUN apt-get update && apt-get -y -q install \
 ##      python-dev \
 ##      python-psycopg2
 
+USER postgres
+RUN /etc/init.d/postgresql start \
+    && psql --command "CREATE USER mk WITH SUPERUSER PASSWORD 'password';" \
+    && createdb -O mk random_walker_aws_test
+
+USER root
+RUN echo "host all  all    127.0.0.1/32  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
+RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
+
+RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
+VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+
+
 ## The following is necessary for Pillow
 RUN sudo apt-get build-dep -y python-imaging
 RUN sudo apt-get install -y\
@@ -61,8 +74,11 @@ COPY $RANDOM_WALKER_SRC $RANDOM_WALKER_SRVPROJ
 # Install Python dependencies
 RUN pip install -r $RANDOM_WALKER_SRVPROJ/requirements.txt
 
-# Port to expose
-EXPOSE 8000
+## Port to expose
+##
+## NOTE (Michael): Since we have the db runnning in the same
+## container, then we need to expose the port.
+EXPOSE 8000 5432
 
 # Copy entrypoint script into the image
 WORKDIR $RANDOM_WALKER_SRVPROJ

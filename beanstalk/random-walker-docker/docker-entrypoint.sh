@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Create data base
-createdb -p 5432 -h random_walker -e random_walker_aws_test
-
 # python commands
 python manage.py migrate                  # Apply database migrations
 python manage.py collectstatic --noinput  # Collect static files
