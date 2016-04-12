@@ -3,13 +3,15 @@
 # Based on an Ubuntu Image
 ############################################################
 
-# Set the base image to use to Ubuntu
+## Set the base image to use to Ubuntu
 FROM ubuntu:14.04
 
-# Set the file maintainer (your name - the file's author)
+## Set the file maintainer (your name - the file's author)
 MAINTAINER Michal Kao
 
-# Set env variables used in this Dockerfile (add a unique prefix, such as RANDOM_WALKER)
+## Set env variables used in this Dockerfile (add a unique prefix,
+## such as RANDOM_WALKER)
+
 # Local directory with project source
 ENV RANDOM_WALKER_SRC=random_walker
 # Directory in container for all project files
@@ -17,14 +19,14 @@ ENV RANDOM_WALKER_SRVHOME=/srv
 # Directory in container for project source files
 ENV RANDOM_WALKER_SRVPROJ=/srv/random_walker
 
-# Update the default application repository sources list
+## Update the default application repository sources list
 RUN apt-get update
 RUN apt-get install -y \
     python \
     python-pip \
     python-setuptools
 
-# The following is necessary for python to run psycopg2 and postgresql
+## The following is necessary for python to run psycopg2 and postgresql
 RUN apt-key adv --keyserver keyserver.ubuntu.com\
      --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" >\
@@ -46,11 +48,11 @@ RUN apt-get update && apt-get -y -q install \
 
 USER postgres
 RUN /etc/init.d/postgresql start \
-    && psql --command "CREATE USER mk WITH SUPERUSER PASSWORD 'password';" \
+    && psql -c "CREATE USER mk WITH SUPERUSER PASSWORD 'password';" \
     && createdb -O mk random_walker_aws_test
 
 USER root
-RUN echo "host all  all    127.0.0.1/32  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
 
 RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
@@ -63,15 +65,15 @@ RUN sudo apt-get install -y\
     libjpeg62 \
     libjpeg62-dev
 
-# Create application subdirectories
+## Create application subdirectories
 WORKDIR $RANDOM_WALKER_SRVHOME
 RUN mkdir media static logs
 VOLUME ["$RANDOM_WALKER_SRVHOME/media/", "$RANDOM_WALKER_SRVHOME/logs/"]
 
-# Copy application source code to SRCDIR
+## Copy application source code to SRCDIR
 COPY $RANDOM_WALKER_SRC $RANDOM_WALKER_SRVPROJ
 
-# Install Python dependencies
+## Install Python dependencies
 RUN pip install -r $RANDOM_WALKER_SRVPROJ/requirements.txt
 
 ## Port to expose
@@ -80,7 +82,7 @@ RUN pip install -r $RANDOM_WALKER_SRVPROJ/requirements.txt
 ## container, then we need to expose the port.
 EXPOSE 8000 5432
 
-# Copy entrypoint script into the image
+## Copy entrypoint script into the image
 WORKDIR $RANDOM_WALKER_SRVPROJ
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
