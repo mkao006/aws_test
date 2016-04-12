@@ -119,13 +119,15 @@ if env == 'local':
 elif env == 'docker':
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'random_walker_aws_test',
             'USER': 'mk',
             # 'PASSWORD': get_secret('RDS_PASSWORD'),
             'PASSWORD': 'password',
-            'HOST': 'localhost',
-            'PORT': '5432',
+            # 'HOST': 'localhost',
+            # 'HOST': '127.0.0.1',
+            # 'PORT': '5432',
         }
     }
 elif env == 'aws':
