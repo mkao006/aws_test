@@ -1,7 +1,15 @@
 #!/bin/bash
 
+echo Starting postgres
+exec start-stop-daemon --start --chuid postgres:postgres \
+    --exec /usr/lib/postgresql/9.3/bin/postgres -- \
+    -D /var/lib/postgresql/9.3/main \
+    -c config_file=/etc/postgresql/9.3/main/postgresql.conf &
+# psql -c "CREATE USER mk WITH SUPERUSER PASSWORD 'password';"\
+# && createdb -O mk random_walker_aws_test
+
 # python commands
-python manage.py migrate                  # Apply database migrations
+# python manage.py migrate                  # Apply database migrations
 python manage.py collectstatic --noinput  # Collect static files
 
 # Prepare log files and start outputting logs to stdout
