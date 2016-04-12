@@ -87,6 +87,23 @@ then run the following.
 sudo bash -c "curl -L https://github.com/docker/machine/releases/download/v0.7.0-rc3/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && chmod +x /usr/local/bin/docker-machine"
 ```
 
+To build the image
+```
+sudo docker build -t mkao006/random_walker .
+```
+
+To run the image
+```
+sudo docker run --publish=8001:8000 mkao006/random_walker:latest
+```
+Then we can enter `http://0.0.0.0:8001/` to access the website
+
+
+To run docker image locally to debug
+```
+sudo docker run -i -t --entrypoint /bin/bash mkao006/random_walker
+```
+
 
 
 ## Elastic Beanstalk
