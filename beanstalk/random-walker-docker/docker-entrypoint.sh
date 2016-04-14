@@ -9,7 +9,7 @@ exec start-stop-daemon --start --chuid postgres:postgres \
 # && createdb -O mk random_walker_aws_test
 
 # python commands
-# python manage.py migrate                  # Apply database migrations
+python manage.py migrate                  # Apply database migrations
 python manage.py collectstatic --noinput  # Collect static files
 
 # Prepare log files and start outputting logs to stdout

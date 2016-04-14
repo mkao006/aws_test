@@ -48,8 +48,8 @@ RUN apt-get update && apt-get -y -q install \
 
 USER postgres
 RUN /etc/init.d/postgresql start \
-    && psql -c "CREATE USER mk WITH SUPERUSER PASSWORD 'password';" \
-    && createdb -O mk random_walker_aws_test
+    && psql -c "CREATE USER root WITH SUPERUSER PASSWORD 'password';" \
+    && createdb -O root random_walker_aws_test
 
 USER root
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf

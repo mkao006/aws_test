@@ -122,7 +122,7 @@ elif env == 'docker':
             # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'random_walker_aws_test',
-            'USER': 'mk',
+            'USER': 'root',
             # 'PASSWORD': get_secret('RDS_PASSWORD'),
             'PASSWORD': 'password',
             # 'HOST': 'localhost',
