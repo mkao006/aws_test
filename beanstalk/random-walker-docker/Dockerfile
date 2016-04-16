@@ -79,8 +79,10 @@ RUN pip install -r $RANDOM_WALKER_SRVPROJ/requirements.txt
 ## Port to expose
 ##
 ## NOTE (Michael): Since we have the db runnning in the same
-## container, then we need to expose the port.
-EXPOSE 8000 5432
+##                 container, then we need to expose the port.
+##
+## NOTE (Michael): The port 80 is for deploying docker on AWS.
+EXPOSE 8000 5432 80
 
 ## Copy entrypoint script into the image
 WORKDIR $RANDOM_WALKER_SRVPROJ
