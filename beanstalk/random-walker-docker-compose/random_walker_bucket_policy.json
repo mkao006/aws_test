@@ -1,0 +1,27 @@
+{
+    "Statement": [
+        {
+          "Sid":"PublicReadForGetBucketObjects",
+          "Effect":"Allow",
+          "Principal": {
+                "AWS": "*"
+             },
+          "Action":["s3:GetObject"],
+          "Resource":["arn:aws:s3:::random-walker/*"
+          ]
+        },
+        {
+            "Action": "s3:*",
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::random-walker",
+                "arn:aws:s3:::random-walker/*"
+            ],
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::992036817331:user/mkao006"
+                ]
+            }
+        }
+    ]
+}

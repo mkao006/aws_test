@@ -1,0 +1,39 @@
+random_walker:
+  restart: always
+  build: ./random_walker
+  expose:
+    - "8000"
+  links:
+    - postgres:postgres
+  volumes:
+    - ./random_walker:/usr/src/app
+    - ./random_walker/static:/usr/src/app/static
+  env_file: .env
+  command: /usr/local/bin/gunicorn random_walker.wsgi:application -w 2 -b :8000 --reload
+
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+  volumes:
+    - /www/static
+  volumes_from:
+    - random_walker
+  links:
+    - random_walker:random_walker
+
+postgres:
+  restart: always
+  image: postgres:latest
+  volumes_from:
+    - data
+  ports:
+    - "5432:5432"
+
+data:
+  restart: always
+  image: postgres:latest
+  volumes:
+    - /var/lib/postgresql
+  command: "true"

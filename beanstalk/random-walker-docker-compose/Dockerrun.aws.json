@@ -1,0 +1,12 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+	"Name": "mkao006/random_walker",
+	"Update": "true"
+    },
+    "Ports": [
+	{
+	    "ContainerPort": "80"
+	}
+    ]
+}
