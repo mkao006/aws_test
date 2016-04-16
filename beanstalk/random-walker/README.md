@@ -97,7 +97,39 @@ sudo docker build -t mkao006/random_walker .
 To run the container locally
 
 ```
-docker run --publish=8001:8000 mkao006/random_walker
+sudo docker run --publish=8001:8000 mkao006/random_walker
+```
+
+After the image has been built successfully, push the image to the
+docker hub.
+
+```
+sudo docker push mkao006/random_walker
+```
+
+
+## Setting up the Django App
+
+### Storing Secrets
+
+The secrets should be directly exposed in the `settings.py` file. It
+should be contained in the `settings.json` file then read into the
+app. The `settings.json` file should not be added to `.gitignore` and
+should not be push to remote.
+
+The structure of the file is as follow:
+```
+{
+    "SECRET_KEY": <secret_key_of_the_django_app>
+    "BUCKET_NAME": <s3_bucket_name>,
+    "AWS_ACCESS_KEY_ID": <amazon_access_key_id>,
+    "AWS_SECRET_ACCESS_KEY": <amazon_secret_access_key>,
+    "RDS_DB_NAME": <name_of_the_data_base>,
+    "RDS_USERNAME": <username_of_the_database>,
+    "RDS_PASSWORD": <password_of_the_database>,
+    "RDS_HOSTNAME": <endpoint_of_the_aws_rds>,
+    "RDS_PORT": <port_of_the_aws_rds>
+}
 ```
 
 
