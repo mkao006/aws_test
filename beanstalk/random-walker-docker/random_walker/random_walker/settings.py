@@ -20,7 +20,7 @@ from unipath import Path
 
 BASE_DIR = Path(__file__).ancestor(2)
 
-deployment_env = 'docker'
+deployment_env = 'aws'
 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
