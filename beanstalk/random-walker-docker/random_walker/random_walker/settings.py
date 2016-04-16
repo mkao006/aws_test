@@ -20,7 +20,7 @@ from unipath import Path
 
 BASE_DIR = Path(__file__).ancestor(2)
 
-env = 'docker'
+deployment_env = 'docker'
 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -105,7 +105,7 @@ WSGI_APPLICATION = 'random_walker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-if env == 'local':
+if deployment_env == 'local':
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -116,7 +116,7 @@ if env == 'local':
             'PORT': '5432',
         }
     }
-elif env == 'docker':
+elif deployment_env == 'docker':
     DATABASES = {
         'default': {
             # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -130,7 +130,7 @@ elif env == 'docker':
             # 'PORT': '5432',
         }
     }
-elif env == 'aws':
+elif deployment_env == 'aws':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -170,11 +170,11 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIAFILES_LOCATION = 'media'
-if env == 'local':
+if deployment_env == 'local':
     MEDIA_URL = '/media/'
-elif env == 'docker':
+elif deployment_env == 'docker':
     MEDIA_URL = '/media/'
-elif env == 'aws':
+elif deployment_env == 'aws':
     MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
@@ -201,11 +201,11 @@ STATICFILES_LOCATION = 'static'
 
 LOGIN_URL = os.path.join(BASE_DIR, 'registration/login_view/')
 
-if env == 'local':
+if deployment_env == 'local':
     STATIC_URL = '/static/'
-elif env == 'docker':
+elif deployment_env == 'docker':
     STATIC_URL = '/static/'
-elif env == 'aws':
+elif deployment_env == 'aws':
     # This is used by the `static` template tag from `static`, if you're
     # using that. Or if anything else refers directly to STATIC_URL. So
     # it's safest to always set it.
