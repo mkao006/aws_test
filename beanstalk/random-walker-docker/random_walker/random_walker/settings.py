@@ -204,7 +204,8 @@ LOGIN_URL = os.path.join(BASE_DIR, 'registration/login_view/')
 if deployment_env == 'local':
     STATIC_URL = '/static/'
 elif deployment_env == 'docker':
-    STATIC_URL = '/static/'
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 elif deployment_env == 'aws':
     # This is used by the `static` template tag from `static`, if you're
     # using that. Or if anything else refers directly to STATIC_URL. So
