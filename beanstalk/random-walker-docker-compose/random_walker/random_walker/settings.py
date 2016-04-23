@@ -120,11 +120,11 @@ elif deployment_env == 'docker':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['DB_NAME'],
-            'USER': os.environ['DB_USER'],
-            'PASSWORD': os.environ['DB_PASS'],
-            'HOST': os.environ['DB_SERVICE'],
-            'PORT': os.environ['DB_PORT']
+            'NAME': get_secret('DOCKER_DB_NAME'),
+            'USER': get_secret('DOCKER_DB_USER'),
+            'PASSWORD': get_secret('DOCKER_DB_PASS'),
+            'HOST': get_secret('DOCKER_DB_SERVICE'),
+            'PORT': get_secret('DOCKER_DB_PORT')
         }
     }
 elif deployment_env == 'aws':
