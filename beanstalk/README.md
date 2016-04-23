@@ -112,6 +112,11 @@ To remove failed build which has the name <none>
 sudo docker images | grep \<none\> | tr -s ' '| cut -d ' ' -f 3 | xargs sudo docker rmi -f
 ```
 
+To run inside a specific Docker image
+```
+docker run -i -t --entrypoint /bin/bash <imageID>
+```
+
 
 ## Setting up the Django App
 
